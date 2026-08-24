@@ -58,6 +58,7 @@ const vFitWidgets = ["QLabel", "QCheckBox", "QRadioButton", "Line", "QDateTimeEd
 class QtDesignerForm extends React.Component {
     static propTypes = {
         addRelationRecord: PropTypes.func,
+        addRelationRecordWithData: PropTypes.func,
         editConfig: PropTypes.object,
         editConfigs: PropTypes.object,
         editLayerId: PropTypes.string,
@@ -305,6 +306,7 @@ class QtDesignerForm extends React.Component {
             return (
                 <widget.component
                     addRelationRecord={this.props.addRelationRecord} constraints={constraints}
+                    addRelationRecordWithData={this.props.addRelationRecordWithData}
                     editConfigs={this.props.editConfigs} feature={this.props.feature}
                     mapPrefix={this.props.mapPrefix}
                     name={elname} onChange={(val) => updateField(widget.name, val)}
