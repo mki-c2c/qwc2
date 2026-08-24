@@ -162,7 +162,8 @@ class AttributeForm extends React.Component {
                 ) : null}
                 <form action="" className="attrib-form-parent-form" onSubmit={this.onSubmit} ref={this.setRef}>
                     {editConfig.form ? (
-                        <QtDesignerForm addRelationRecord={this.addRelationRecord} editConfig={editConfig}
+                        <QtDesignerForm addRelationRecord={this.addRelationRecord}
+                            addRelationRecordWithData={this.addRelationRecordWithData} editConfig={editConfig}
                             editRelationRecord={this.editRelationRecord}
                             feature={this.props.editContext.feature} iface={this.props.iface}
                             mapCrs={this.props.map.projection} mapPrefix={this.props.editContext.mapPrefix} readOnly={readOnly}
@@ -232,14 +233,15 @@ class AttributeForm extends React.Component {
             }
         }
     };
-    addRelationRecord = (table) => {
+    addRelationRecord = (table) => this.addRelationRecordWithData(table, {});
+    addRelationRecordWithData = (table, data) => {
         const newRelationValues = {...this.props.editContext.feature.relationValues};
         const editConfig = this.props.editConfigs[this.props.editContext.mapPrefix][table.split('.').slice(-1)];
         getFeatureTemplate(editConfig, {
             type: "Feature",
-            properties: {}
+            properties: data
         }, this.props.iface, this.props.editContext.mapPrefix, this.props.map.projection, newRelFeature => {
-            newRelFeature.__status__ = "empty";
+            newRelFeature.__status__ = data ? "new" : "empty";
             if (editConfig.geomType === null) {
                 newRelFeature.geometry = null;
             }
