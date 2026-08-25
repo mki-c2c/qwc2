@@ -98,7 +98,7 @@ export default class SearchWidget extends React.Component {
                         renderGroupTitle(group),
                         group.items.map(item => {
                             const text = (item.label !== undefined ? item.label : item.text || '').replace(/<\/?\w+\s*\/?>/g, '');
-                            return renderItem(group, {...item, text: text});
+                            return renderItem(group, {...item, text: text}, () => this.resultSelected(group, item));
                         })
                     ];
                 }).flat()}
@@ -112,9 +112,9 @@ export default class SearchWidget extends React.Component {
             </div>
         );
     };
-    renderItem = (group, item) => {
+    renderItem = (group, item, onClick) => {
         return (
-            <div className="search-widget-results-item" key={group.id + ":" + item.id} onClick={() => this.resultSelected(group, item)} title={item.text}>{item.text}</div>
+            <div className="search-widget-results-item" key={group.id + ":" + item.id} onClick={() => onCLick()} title={item.text}>{item.text}</div>
         );
     };
     textChanged = (ev) => {
